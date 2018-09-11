@@ -5,6 +5,10 @@ output: pdf_document
 
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(echo = TRUE)
+install.packages("car")
+install.packages("GGally")
+library(car)
+library(GGally)
 ```
 
 ## R Markdown
@@ -13,16 +17,18 @@ This is an R Markdown document. Markdown is a simple formatting syntax for autho
 
 When you click the **Knit** button a document will be generated that includes both content as well as the output of any embedded R code chunks within the document. You can embed an R code chunk like this:
 
-```{r cars}
-summary(cars)
+```{r cars, echo=FALSE, message=FALSE}
+data(SLID, package = "carData")
+SLID <- SLID[complete.cases(SLID), ]
 ```
 
 ## Including Plots
 
 You can also embed plots, for example:
 
-```{r pressure, echo=FALSE}
-plot(pressure)
+```{r pressure, echo=FALSE, message=FALSE, warning=FALSE}
+ggpSLID = ggpairs(SLID)
+print(ggpSLID,progress=F)
 ```
 
 Note that the `echo = FALSE` parameter was added to the code chunk to prevent printing of the R code that generated the plot.
