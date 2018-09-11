@@ -1,5 +1,6 @@
 ---
-title: "report"
+title: "Exercise 1 - Linear models for Gaussian data"
+author: Anders Christiansen Sørby, Edvard Hove
 output: pdf_document
 ---
 
@@ -9,26 +10,26 @@ install.packages("car")
 install.packages("GGally")
 library(car)
 library(GGally)
+library(mylm)
 ```
 
-## R Markdown
+We will work on the dataset `carData`, which consists of 3987 observations on the following 5 variables:
 
-This is an R Markdown document. Markdown is a simple formatting syntax for authoring HTML, PDF, and MS Word documents. For more details on using R Markdown see <http://rmarkdown.rstudio.com>.
-
-When you click the **Knit** button a document will be generated that includes both content as well as the output of any embedded R code chunks within the document. You can embed an R code chunk like this:
+* `wages`, composite hourly wage rate from all jobs
+* `education`, number of years in schooling
+* `age`, in years
+* `sex`, Male or Female
+* `language`, English, French or Other
 
 ```{r cars, echo=FALSE, message=FALSE}
 data(SLID, package = "carData")
 SLID <- SLID[complete.cases(SLID), ]
 ```
 
-## Including Plots
-
-You can also embed plots, for example:
+Using the function `ggpairs` we get the following diagnostic plot matrix:
 
 ```{r pressure, echo=FALSE, message=FALSE, warning=FALSE}
 ggpSLID = ggpairs(SLID)
 print(ggpSLID,progress=F)
 ```
-
-Note that the `echo = FALSE` parameter was added to the code chunk to prevent printing of the R code that generated the plot.
+The plot suggests that `wages` increase with both `education` and `age`, despite the apparent slight decrease of `education` with `age`. It also seems like males recieve higher wages than females, despite similar levels of age and education. The `language` variable seems to have some relationship with both `language` and `education` 
