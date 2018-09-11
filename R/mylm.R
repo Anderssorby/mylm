@@ -19,20 +19,22 @@ mylm <- function(formula,
   # and store the results in the list est
   est <- list(terms = terms, model = mf)
 
+
   n <- length(y)
   p <- ncol(x)
   terms <- attr(mf, "terms")
   est$H <- H  <- solve(t(x) %*% x) %*% t(x)
   est$beta <- beta <- H %*% y
-  sigma2 <- t(y - x %*% beta) %*% (y - x %*% beta) / (n - p)
+  est$residuals <- residuals <- y - x %*% beta
+  sigma2 <- drop(t(residuals) %*% (residuals) / (n - p))
   est$covar <- covar <- solve(t(x) %*% x) * sigma2
 
 
   statistics <- rep(0, p)
   pvalues <- rep(0, p)
   for (j in 1:p) {
-    statistics[j] <- beta[j] / sqrt(covar[j, j])
-    pvalues <- 2*(1-pnorm(statistics[j]))
+    statistics[j] <- beta[j] / sqrt(sigma2*covar[j, j])
+    pvalues[j] <- 2*(1-pnorm(statistics[j]))
   }
   # Store call and formula used
   est$statistics <- statistics
@@ -48,16 +50,20 @@ mylm <- function(formula,
   return(est)
 }
 
-print.mylm <- function(object, ...) {
+print.mylm <- function(est, ...) {
   # Code here is used when print(object) is used on objects of class "mylm"
   # Useful functions include cat, print.default and format
-  cat('Info about object\n')
+  cat('Info about mylm\n')
+  print(est$beta)
+  print(est$pvalues)
 }
 
-summary.mylm <- function(object, ...) {
+summary.mylm <- function(est, ...) {
   # Code here is used when summary(object) is used on objects of class "mylm"
   # Useful functions include cat, print.default and format
-  cat('Summary of object\n')
+  cat('Summary of mylm\n')
+  print(est$beta)
+  print(est$pvalues)
 }
 
 plot.mylm <- function(object, ...) {
