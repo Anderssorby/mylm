@@ -38,5 +38,6 @@ The plot suggests that `wages` increase with both `education` and `age`, despite
 When performing a multiple linear regression analysis to study how `wages` depends on the explanatory variables we need to assume that: ELABORATE
 
 - each data point \(Y_i\) is independent
-- there is a linear relationship between `wages` and the explanatory variables, such that \(Y_i \sim \mathcal{N}(\mu_i,\sigma^2)\)
-- the residuals are normally distributed with a homogenous variance
+- the residuals are normally distributed with a homogenous variance, such that \(Y_i \sim \mathcal{N}(\mu_i,\sigma^2)\)
+- there is a linear relationship between `wages` and the explanatory variables, such that \(\mu_i = \eta_i = \mathbf{x_i}^T\beta\)
+
