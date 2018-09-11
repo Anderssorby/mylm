@@ -33,7 +33,7 @@ mylm <- function(formula,
   statistics <- rep(0, p)
   pvalues <- rep(0, p)
   for (j in 1:p) {
-    statistics[j] <- beta[j] / sqrt(sigma2*covar[j, j])
+    statistics[j] <- beta[j] / sqrt(covar[j, j])
     pvalues[j] <- 2*(1-pnorm(statistics[j]))
   }
   # Store call and formula used

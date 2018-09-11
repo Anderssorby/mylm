@@ -1,5 +1,6 @@
 ---
-title: "Exercise 1 - Linear models for Gaussian data"
+title: "Linear models for Gaussian data"
+subtitle: "TMA4315 - Exercise 1"
 author: Anders Christiansen Sørby, Edvard Hove
 output: pdf_document
 ---
@@ -32,4 +33,10 @@ Using the function `ggpairs` we get the following diagnostic plot matrix:
 ggpSLID = ggpairs(SLID)
 print(ggpSLID,progress=F)
 ```
-The plot suggests that `wages` increase with both `education` and `age`, despite the apparent slight decrease of `education` with `age`. It also seems like males recieve higher wages than females, despite similar levels of age and education. The `language` variable seems to have some relationship with both `language` and `education` 
+The plot suggests that `wages` increase with both `education` and `age`, despite the apparent slight decrease of `education` with `age`. It also seems like males recieve higher wages than females, despite similar levels of age and education. There seems to be some relationship between `language` and `age`, but it is not clear if there is a corresponding relationship between `language` and `wages`. 
+
+When performing a multiple linear regression analysis to study how `wages` depends on the explanatory variables we need to assume that: ELABORATE
+
+- each data point \(Y_i\) is independent
+- there is a linear relationship between `wages` and the explanatory variables, such that \(Y_i \sim \mathcal{N}(\mu_i,\sigma^2)\)
+- the residuals are normally distributed with a homogenous variance
