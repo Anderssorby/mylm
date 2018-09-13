@@ -62,13 +62,24 @@ summary.mylm <- function(est, ...) {
   # Code here is used when summary(object) is used on objects of class "mylm"
   # Useful functions include cat, print.default and format
   cat('Summary of mylm\n')
+
+  cat("Residuals:\n")
+  max_res <- max(est$residuals)
+  min_res <- min(est$residuals)
+  mean_res <- mean(est$residuals)
+  median_res <- median(est$residuals)
+  cat("Min\tMax\tMean\t\n")
+  cat(sprintf("%.5f\t%.5f\t%.5f\t\n", max_res, mean_res, median_res))
+
+
+  cat("Coefficients:\n")
   print(est$beta)
   print(est$pvalues)
 }
 
-plot.mylm <- function(object, ...) {
+plot.mylm <- function(est, ...) {
   # Code here is used when plot(object) is used on objects of class "mylm"
-
+  plot(est$covar, title = est$formula)
 }
 
 
