@@ -55,15 +55,16 @@ print.mylm <- function(est, ...) {
   # Useful functions include cat, print.default and format
   cat('Info about mylm\n')
   print(est$beta)
-  print(est$pvalues)
 }
 
 summary.mylm <- function(est, ...) {
+  df <- data.frame(matrix(c(reg$beta,sqrt(diag(reg$covar)),reg$statistics,reg$pvalues),ncol = 4),colnames(c("Estimate","Std. error","z-value","Pr(>|z|)")))
+
   # Code here is used when summary(object) is used on objects of class "mylm"
   # Useful functions include cat, print.default and format
   cat('Summary of mylm\n')
 
-  cat("Residuals:\n")
+  cat("Residuals: \n")
   max_res <- max(est$residuals)
   min_res <- min(est$residuals)
   mean_res <- mean(est$residuals)
@@ -73,6 +74,7 @@ summary.mylm <- function(est, ...) {
 
 
   cat("Coefficients:\n")
+
   print(est$beta)
   print(est$pvalues)
 }

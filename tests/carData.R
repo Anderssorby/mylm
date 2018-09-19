@@ -3,10 +3,13 @@ library(car)
 library(mylm)
 data(SLID, package = "carData")
 SLID <- SLID[complete.cases(SLID), ]
-reg <- mylm(wages ~ sex + language + age + education, SLID)
-reg2 <- lm(wages ~ sex + language + age + education, SLID)
+reg <- mylm(wages ~education, SLID)
+reg2 <- lm(wages ~education, SLID)
 
 print(reg)
-summary(reg)
+print(reg2)
 
-plot(reg)
+summary(reg)
+summary(reg2)
+
+matrix(c(reg$beta,sqrt(diag(reg$covar)),reg$statistics,reg$pvalues),ncol = 4)
