@@ -1,5 +1,3 @@
-
-
 # Select Build, Build and reload to build and lode into the R-session.
 
 mylm <- function(formula,
@@ -53,28 +51,33 @@ mylm <- function(formula,
 print.mylm <- function(est, ...) {
   # Code here is used when print(object) is used on objects of class "mylm"
   # Useful functions include cat, print.default and format
-  cat('Info about mylm\n')
-  print(est$beta)
+  cat('Info about mylm\n \nCoefficients:\n')
+  v = as.vector(as.numeric(format(est$beta, digits = 4, nsmall = 4, trim = T))) # formatting s.t. there are only five decimals
+  names(v) = rownames(est$beta)
+  v
 }
 
 summary.mylm <- function(est, ...) {
-  df <- data.frame(matrix(c(reg$beta,sqrt(diag(reg$covar)),reg$statistics,reg$pvalues),ncol = 4),colnames(c("Estimate","Std. error","z-value","Pr(>|z|)")))
-
+  #df <- as.data.frame(matrix(c(reg$beta,sqrt(diag(reg$covar)),reg$statistics,reg$pvalues),ncol = 4))
   # Code here is used when summary(object) is used on objects of class "mylm"
   # Useful functions include cat, print.default and format
   cat('Summary of mylm\n')
 
   cat("Residuals: \n")
-  max_res <- max(est$residuals)
-  min_res <- min(est$residuals)
-  mean_res <- mean(est$residuals)
-  median_res <- median(est$residuals)
-  cat("Min\tMax\tMean\t\n")
-  cat(sprintf("%.5f\t%.5f\t%.5f\t\n", max_res, mean_res, median_res))
+  #max_res <- max(est$residuals)
+  #min_res <- min(est$residuals)
+  #mean_res <- mean(est$residuals)
+  #median_res <- median(est$residuals)
+  #cat("Min \t Median \t Max \t \n")
+  #cat(sprintf("%.5f\t%.5f\t%.5f\t\n", min_res, median_res, max_res)) # WHAT ABOUT 1Q AND 3Q?
 
+  v = quantile(est$residuals, names = T)
+  names(v) = c("Min", "1Q", "Median", "3Q", "Max")
+  print(v, digits = 3)
 
   cat("Coefficients:\n")
 
+  df = as.matrix(cbind(est$beta, diag(sqrt(est$covar)), est$statistics, est$pvalues))
   print(est$beta)
   print(est$pvalues)
 }
@@ -121,3 +124,4 @@ anova.mylm <- function(object, ...) {
   return(model)
 
 }
+
