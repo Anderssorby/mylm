@@ -80,6 +80,10 @@ R^2 = 1 - \frac{SSR}{SST}
 \end{align}
 where $\bar{y}$ is the mean of responses and $\hat{y}_i$ is the fitted value. The coefficient of determination, \(R^2\), shows how much of the variance of the prediction can be explained by the variance of the response.
 
+**c)**  
+
+**d)**
+
 The residual sum of squares (SSE) for this model is \(`r sprintf('%.3f', model1$sse)`\). 
 The model has \(`r n-length(model1$beta)`\) degrees of freedom, which is obtained by subtracting the number of estimated parameters from the number of observations.
 The total sum of squares (SST) is \(`r sprintf('%.3f', model1$sst)`\). Assuming $\beta_1=0$ we have
@@ -88,3 +92,37 @@ The total sum of squares (SST) is \(`r sprintf('%.3f', model1$sst)`\). Assuming 
 \frac{\nicefrac{SSE}{p-1}}{\nicefrac{SSR}{n-p}} = \frac{\nicefrac{`r sprintf('%.3f', model1$sse)`}{`r length(model1$beta)-1`}}{\nicefrac{`r sprintf('%.3f', model1$sst)`-`r sprintf('%.3f', model1$sse)`}{`r n-length(model1$beta)`}} \sim \chi^2
 \end{equation}
 **e)**
+
+# Part 3: Multiple linear regression
+
+**a)**
+**b)**
+```{r}
+model2 <- mylm(wages ~ education + age, data = SLID)
+summary(model2)
+```
+
+
+
+
+**c)**
+```{r}
+model2c1 <- mylm(wages ~ education, data = SLID)
+model2c2 <- mylm(wages ~ age, data = SLID)
+summary(model2c1)
+summary(model2c2)
+```
+The values differ between the models because each covariate is used to explain more of the model than in the bigger model. 
+
+# Part 4: Testing mylm
+
+Now we can test our function mylm on any linear model.
+
+```{r}
+model4a <- mylm(wages ~ sex + age + language + education^2, data = SLID)
+model4b <- mylm(wages ~ age + language + language * age, data = SLID)
+model4c <- mylm(wages ~ education -1, data = SLID)
+summary(model4a)
+summary(model4b)
+summary(model4c)
+```
