@@ -85,6 +85,6 @@ The model has \(`r n-length(model1$beta)`\) degrees of freedom, which is obtaine
 The total sum of squares (SST) is \(`r sprintf('%.3f', model1$sst)`\). Assuming $\beta_1=0$ we have
 
 \begin{equation}
-\frac{\nicefrac{SSE}{p-1}}{\nicefrac{SSR}{n-p}} = \frac{\nicefrac{`r sprintf('%.3f', model1$sse)`}{`r p-1`}}{\nicefrac{`r sprintf('%.3f', model1$sst)`-`r sprintf('%.3f', model1$sse)`}{`r n-p`}} \sim \chi^2
+\frac{\nicefrac{SSE}{p-1}}{\nicefrac{SSR}{n-p}} = \frac{\nicefrac{`r sprintf('%.3f', model1$sse)`}{`r length(model1$beta)-1`}}{\nicefrac{`r sprintf('%.3f', model1$sst)`-`r sprintf('%.3f', model1$sse)`}{`r n-length(model1$beta)`}} \sim \chi^2
 \end{equation}
 **e)**
