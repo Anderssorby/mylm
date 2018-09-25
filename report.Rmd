@@ -53,3 +53,13 @@ print(reg2)
 summary(reg)
 summary(reg2)
 ```
+
+The error of the regression can be represented using the following quantities. This holds for linear regression.
+
+\begin{align}
+SSE = \sum^{n}_{i=1}(\hat{y}_i - \bar{y})^2 \\
+SSR = \sum^{n}_{i=1}(y_i - \hat{y}_i)^2 \\
+SST = \sum^{n}_{i=1}(y_i - \bar{y}_i)^2 = SSE + SSR \\
+R^2 = 1 - \frac{SSR}{SST}
+\end{align}
+where $\bar{y}$ is the mean of responses and $\hat{y}_i$ is the fitted value. The coefficient of determination, \(R^2\), shows how much of the variance of the prediction can be explained by the variance of the response.
