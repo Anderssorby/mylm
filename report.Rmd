@@ -1,10 +1,11 @@
 ---
 title: "Linear models for Gaussian data"
-subtitle: "TMA4315 - Exercise 1"
-author: Anders Christiansen Sørby, Edvard Hove
-header-includes:
-  - \usepackage{nicefrac}
-output: pdf_document
+author: "Anders Christiansen Sørby, Edvard Hove, Angela Maiken Johnsen"
+output:
+  html_document: default
+  pdf_document: default
+subtitle: TMA4315 - Exercise 1
+header-includes: \usepackage{nicefrac}
 ---
 
 ```{r setup, include=FALSE}
