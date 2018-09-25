@@ -40,18 +40,22 @@ When performing a multiple linear regression analysis to study how `wages` depen
 - each data point \(Y_i\) is independent
 - the residuals are normally distributed with a homogenous variance, such that \(Y_i \sim \mathcal{N}(\mu_i,\sigma^2)\)
 - there is a linear relationship between `wages` and the explanatory variables, such that \(\mu_i = \eta_i = \mathbf{x_i}^T\beta\)
-```{r}
-#source("R/mylm.R")
-library(car)
-library(mylm)
-reg <- mylm(wages ~education, SLID)
-reg2 <- lm(wages ~education, SLID)
 
-print(reg)
-print(reg2)
 
-summary(reg)
-summary(reg2)
+# Part 2: Simple linear regression with the mylm package
+
+**a)**
+```{r model1}
+model1 <- mylm(wages ~education, data = SLID)
+print(model1)
+
+model1b <- lm(wages ~ education, data = SLID)
+print(model1b)
+```
+
+```{r summary}
+summary(model1)
+#summary(model1b)
 ```
 
 The error of the regression can be represented using the following quantities. This holds for linear regression.
