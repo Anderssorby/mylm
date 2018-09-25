@@ -62,6 +62,11 @@ summary(model1)
 #summary(model1b)
 ```
 
+
+**c)**
+
+**d)**
+
 The error of the regression can be represented using the following quantities. This holds for linear regression.
 
 \begin{align}
@@ -72,15 +77,12 @@ R^2 = 1 - \frac{SSR}{SST}
 \end{align}
 where $\bar{y}$ is the mean of responses and $\hat{y}_i$ is the fitted value. The coefficient of determination, \(R^2\), shows how much of the variance of the prediction can be explained by the variance of the response.
 
-**c)**
-
-**d)**
 
 The residual sum of squares (SSE) for this model is \(`r sprintf('%.3f', model1$sse)`\). 
 The model has \(`r n-length(model1$beta)`\) degrees of freedom, which is obtained by subtracting the number of estimated parameters from the number of observations.
 The total sum of squares (SST) is \(`r sprintf('%.3f', model1$sst)`\). Assuming $\beta_1=0$ we have
 
 \begin{equation}
-\frac{}{}
+\frac{\sum_i \hat{Y}_i}{}
 \end{equation}
 **e)**
