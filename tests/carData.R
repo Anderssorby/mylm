@@ -1,13 +1,14 @@
-#install.packages("car")
+install.packages("car")
 library(car)
 library(mylm)
 data(SLID, package = "carData")
 SLID <- SLID[complete.cases(SLID), ]
-reg <- mylm(wages ~education, SLID)
-reg2 <- lm(wages ~education, SLID)
+reg <- mylm(wages ~ education + age , SLID)
+reg2 <- lm(wages ~ education + age, SLID)
 
-print(reg)
 print(reg2)
+print(reg)
+
 
 summary(reg)
 summary(reg2)

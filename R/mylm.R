@@ -26,7 +26,14 @@ mylm <- function(formula,
   est$residuals <- residuals <- y - x %*% beta
   sigma2 <- drop(t(residuals) %*% (residuals) / (n - p))
   est$covar <- covar <- solve(t(x) %*% x) * sigma2
-
+  est$dof <- dof <- n-length(beta)
+  est$ssr <- ssr <- sum(residuals^2) # Residual sum of squares
+  est$rse <- rse <- sqrt(ssr/dof) # Residual standard error
+  est$sst <- sst <- sum((y-mean(y))^2)  # Total sum of squares
+  est$r2 <- r2 <- 1-ssr/sst # R^2
+  est$r2adj <- r2adj <- 1-(1-r2)*(n-1)/(n-length(beta))
+  est$Fstat <- Fstat <- (sst-ssr)/(length(beta) - 1) * (n-p)/ssr
+  est$Fpval <- Fpval <- pchisq(Fstat*(p-1), df = p-1)
 
   statistics <- rep(0, p)
   pvalues <- rep(0, p)
@@ -51,7 +58,9 @@ mylm <- function(formula,
 print.mylm <- function(est, ...) {
   # Code here is used when print(object) is used on objects of class "mylm"
   # Useful functions include cat, print.default and format
-  cat('Info about mylm\n \nCoefficients:\n')
+  cat("Call:\nmylm : formula = ")
+  print(est$formula)
+  cat('\nCoefficients:\n')
   v = as.vector(as.numeric(format(est$beta, digits = 4, nsmall = 4, trim = T))) # formatting s.t. there are only five decimals
   names(v) = rownames(est$beta)
   v
@@ -61,7 +70,7 @@ summary.mylm <- function(est, ...) {
   #df <- as.data.frame(matrix(c(reg$beta,sqrt(diag(reg$covar)),reg$statistics,reg$pvalues),ncol = 4))
   # Code here is used when summary(object) is used on objects of class "mylm"
   # Useful functions include cat, print.default and format
-  cat('Summary of mylm\n')
+  cat('Summary of mylm\n\n')
 
   cat("Residuals: \n")
   #max_res <- max(est$residuals)
@@ -75,11 +84,16 @@ summary.mylm <- function(est, ...) {
   names(v) = c("Min", "1Q", "Median", "3Q", "Max")
   print(v, digits = 3)
 
-  cat("Coefficients:\n")
+  cat("\nCoefficients:\n")
 
-  df = as.matrix(cbind(est$beta, diag(sqrt(est$covar)), est$statistics, est$pvalues))
-  print(est$beta)
-  print(est$pvalues)
+  mat = as.matrix(cbind(est$beta, sqrt(diag(est$covar)), est$statistics, est$pvalues))
+  colnames(mat) = c("Estimate", "Std. Error", "t value", "Pr(>|t|)")
+  print(mat, digits = 4)    # how many digits?
+  cat("---\n")
+  cat("Signif. codes:\t0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1")
+  cat("\n\nResidual standard error:", est$rse, "on", est$dof, "degrees of freedom\n")
+  cat("Multiple R-squared:", est$r2, "\tAdjusted R-squared:", est$r2adj, "\n")
+  cat("F-statistic:", est$Fstat, "on", length(est$beta)-1, "and", est$dof, "DF, p-value: <", est$Fpval)
 }
 
 plot.mylm <- function(est, ...) {
@@ -124,4 +138,3 @@ anova.mylm <- function(object, ...) {
   return(model)
 
 }
-
