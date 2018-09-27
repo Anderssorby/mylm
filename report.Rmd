@@ -2,8 +2,8 @@
 title: "Linear models for Gaussian data"
 author: "Anders Christiansen Sørby, Edvard Hove, Angela Maiken Johnsen"
 output:
-  html_document: default
   pdf_document: default
+#  html_document: default
 subtitle: TMA4315 - Exercise 1
 header-includes: \usepackage{nicefrac}
 ---

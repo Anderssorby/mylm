@@ -32,9 +32,10 @@ mylm <- function(formula,
   est$sst <- sst <- sum((y-mean(y))^2)  # Total sum of squares
   est$r2 <- r2 <- 1-ssr/sst # R^2
   est$r2adj <- r2adj <- 1-(1-r2)*(n-1)/(n-length(beta))
-  est$Fstat <- Fstat <- (sst-ssr)/(length(beta) - 1) * (n-p)/ssr
-  est$Fpval <- Fpval <- pchisq(Fstat*(p-1), df = p-1)
+  est$Fstat <- Fstat <- (sst-ssr)/(length(beta) - 1) * (n-p)/ssr # F-statistic
+  est$Fpval <- Fpval <- 1-pchisq(Fstat*(p-1), df = p-1)
 
+  # z-test
   statistics <- rep(0, p)
   pvalues <- rep(0, p)
   for (j in 1:p) {
