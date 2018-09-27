@@ -30,9 +30,10 @@ mylm <- function(formula,
   est$ssr <- ssr <- sum(residuals^2) # Residual sum of squares
   est$rse <- rse <- sqrt(ssr/dof) # Residual standard error
   est$sst <- sst <- sum((y-mean(y))^2)  # Total sum of squares
+  est$sse <- sse <- sst-ssr
   est$r2 <- r2 <- 1-ssr/sst # R^2
   est$r2adj <- r2adj <- 1-(1-r2)*(n-1)/(n-length(beta))
-  est$Fstat <- Fstat <- (sst-ssr)/(length(beta) - 1) * (n-p)/ssr # F-statistic
+  est$Fstat <- Fstat <- (sse)/(length(beta) - 1) * (n-p)/ssr # F-statistic
   est$Fpval <- Fpval <- 1-pchisq(Fstat*(p-1), df = p-1)
 
   # z-test

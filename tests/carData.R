@@ -1,4 +1,4 @@
-install.packages("car")
+#install.packages("car")
 library(car)
 library(mylm)
 data(SLID, package = "carData")
