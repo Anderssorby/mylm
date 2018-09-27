@@ -67,10 +67,13 @@ summary(model1)
 
 
 **c)**
-
+```{r plot}
+plot(model1)
+#summary(model1b)
+```
 **d)**
 
-The error of the regression can be represented using the following quantities. This holds for linear regression.
+The error of the regression can be represented using the following quantities. This holds for linear regression. We are using the following naming convention, which may differ from other texts.
 
 \begin{align}
 SSE = \sum^{n}_{i=1}(\hat{y}_i - \bar{y})^2 \\
@@ -84,7 +87,7 @@ where $\bar{y}$ is the mean of responses and $\hat{y}_i$ is the fitted value. Th
 
 **d)**
 
-The residual sum of squares (SSE) for this model is \(`r sprintf('%.3f', model1$sse)`\). 
+The residual sum of squares (SSR) for this model is \(`r sprintf('%.3f', model1$ssr)`\). 
 The model has \(`r n-length(model1$beta)`\) degrees of freedom, which is obtained by subtracting the number of estimated parameters from the number of observations.
 The total sum of squares (SST) is \(`r sprintf('%.3f', model1$sst)`\). Assuming $\beta_1=0$ we have
 

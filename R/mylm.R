@@ -89,7 +89,7 @@ summary.mylm <- function(est, ...) {
   cat("\nCoefficients:\n")
 
   mat = as.matrix(cbind(est$beta, sqrt(diag(est$covar)), est$statistics, est$pvalues))
-  colnames(mat) = c("Estimate", "Std. Error", "t value", "Pr(>|t|)")
+  colnames(mat) = c("Estimate", "Std. Error", "z value", "Pr(>|z|)")
   print(mat, digits = 4)    # how many digits?
   cat("---\n")
   cat("Signif. codes:\t0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1")
