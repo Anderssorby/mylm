@@ -96,7 +96,7 @@ summary.mylm <- function(est, ...) {
   cat("Signif. codes:\t0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1")
   cat("\n\nResidual standard error:", est$rse, "on", est$dof, "degrees of freedom\n")
   cat("Multiple R-squared:", est$r2, "\tAdjusted R-squared:", est$r2adj, "\n")
-  cat("F-statistic:", est$Fstat, "on", length(est$beta)-1, "and", est$dof, "DF, p-value: <", est$Fpval)
+  cat("F-statistic:", est$Fstat, "on", length(est$beta)-1, "and", est$dof, "DF, p-value: <", est$Fpval, "\n")
 }
 
 plot.mylm <- function(est, ...) {
