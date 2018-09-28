@@ -17,6 +17,8 @@ library(GGally)
 library(mylm)
 ```
 
+# Part 1: Explanatory analysis
+
 We will work on the dataset `carData`, which consists of 3987 observations on the following 5 variables:
 
 * `wages`, composite hourly wage rate from all jobs
@@ -96,7 +98,7 @@ which gives gives a value of \(`r sprintf('%.2f', (n-model1$p)*model1$sse/model1
 For a $\chi_{1}^2$ distribution, where the mean is 1, this is a very extreme value.
 Hence the regression is clearly significant.
 A $\chi^2_k$ distribution is the sum of the squares of $k$ independent standard normal random variables.
-In our case we have $k=1$, meaning that the $\chi^2$-statistic is simply the square of the $z$-statistic. 
+In our case we have $k=1$, which means that the $\chi^2$-statistic is simply the square of the $z$-statistic. 
 The critical value for a $\chi_{1}^2$ test with confidence of 95% is \(`r sprintf('%.2f',qchisq(0.95,1))`\), while the two-sided $z$-test has critical values $\pm 1.96$.
 
 
@@ -109,14 +111,15 @@ A high proportion of the variance in the data is not accounted for by `model1`.
 # Part 3: Multiple linear regression
 
 **a)**
-**b)**
+
 ```{r}
 model2 <- mylm(wages ~ education + age, data = SLID)
 summary(model2)
 ```
 
+**b)**
 
-
+From the summary above we see that the intercept and both the regression coefficients are significantly different from zero according to the $z$-test. 
 
 **c)**
 ```{r}
@@ -126,6 +129,9 @@ summary(model2c1)
 summary(model2c2)
 ```
 The values differ between the models because each covariate is used to explain more of the model than in the bigger model. 
+We know from the plot in part 1 that `age` and `education` are correlated.
+This means that changing the covariate in one of the small models is similar to changing both covariates in the bigger model.
+For uncorrelated covariates we would expect the same parameter estimates from the simple and multiple linear regression.
 
 # Part 4: Testing mylm
 
