@@ -102,7 +102,7 @@ summary.mylm <- function(est, ...) {
 plot.mylm <- function(est, ...) {
   # Code here is used when plot(object) is used on objects of class "mylm"
   #plot(est$covar, title = est$formula)
-  plot(est$yhat,est$residuals,ylab="Residuals",xlab="Fitted values")
+  plot(est$yhat,est$residuals,ylab="Residuals",xlab="Fitted values",pch=2)
 }
 
 

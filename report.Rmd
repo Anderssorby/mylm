@@ -41,7 +41,7 @@ print(ggpSLID,progress=F)
 ```
 The plot suggests that `wages` increase with both `education` and `age`, despite the apparent slight decrease of `education` with `age`. It also seems like males recieve higher wages than females, despite similar levels of age and education. There seems to be some relationship between `language` and `age`, but it is not clear if there is a corresponding relationship between `language` and `wages`. 
 
-When performing a multiple linear regression analysis to study how `wages` depends on the explanatory variables we need to assume that: ELABORATE
+When performing a multiple linear regression analysis to study how `wages` depends on the explanatory variables we need to assume that: 
 
 - each data point \(Y_i\) is independent
 - the residuals are normally distributed with a homogenous variance, such that \(Y_i \sim \mathcal{N}(\mu_i,\sigma^2)\)
@@ -64,7 +64,6 @@ print(model1b)
 
 ```{r summary}
 summary(model1)
-#summary(model1b)
 ```
 
 
@@ -72,6 +71,8 @@ summary(model1)
 ```{r plot}
 plot(model1)
 ```
+From the plot it is not clear whether the residuals depends on the fitted value.
+While the mean of the residuals is very close to zero, the distribution seems to have more variation in the positive direction.
 
 **d)**
 
@@ -91,7 +92,7 @@ The total sum of squares (SST) is \(`r sprintf('%.0f', model1$sst)`\).
 For a model with so many degrees of freedom we can use the limiting distribution
 
 \begin{equation}
-(p-1)F = (p-1)\frac{\nicefrac{SSE}{p-1}}{\nicefrac{SSR}{n-p}} \sim \chi_{p-1}^2,
+(p-1)F = (p-1)\frac{\nicefrac{SSE}{p-1}}{\nicefrac{SSR}{n-p}} \approx \chi_{p-1}^2,
 \end{equation}
 
 which gives gives a value of \(`r sprintf('%.2f', (n-model1$p)*model1$sse/model1$ssr)`\).
@@ -119,7 +120,7 @@ summary(model2)
 
 **b)**
 
-From the summary above we see that the intercept and both the regression coefficients are significantly different from zero according to the $z$-test. 
+From the summary above we see that the intercept and both the regression coefficients are significantly different from zero according to the $z$-test, which has critical values $\pm1.96$. 
 
 **c)**
 ```{r}
@@ -138,10 +139,22 @@ For uncorrelated covariates we would expect the same parameter estimates from th
 Now we can test our function mylm on any linear model.
 
 ```{r}
-model4a <- mylm(wages ~ sex + age + language + education^2, data = SLID)
+model4a <- mylm(wages ~ sex + age + language + I(education^2), data = SLID)
 model4b <- mylm(wages ~ age + language + language * age, data = SLID)
+shiftedlanguage <- relevel(SLID$language,ref =2)
+model4bnew <- mylm(wages ~ age + shiftedlanguage + shiftedlanguage * age, data = SLID)
 model4c <- mylm(wages ~ education -1, data = SLID)
 summary(model4a)
+plot(model4a)
 summary(model4b)
+plot(model4b)
 summary(model4c)
+plot(model4c)
 ```
+
+All the coefficients in both `model4a` and `model4c` are significant, according to the $z$-test. 
+In `model4b` the interaction between age and language is barely signicant for French speakers, and not at all for other languages. 
+By releveling, we can find the interaction between English speakers and age which is significant.
+It is notable that the coefficients for language change a lot between `model4a` and `model4b`.
+The coefficent for speaking French even changes sign between the two models.
+The interpretation of this is that the seemingly increased wages for French speakers are better explained by their sex and education.
