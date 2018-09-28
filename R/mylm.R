@@ -19,11 +19,12 @@ mylm <- function(formula,
 
 
   n <- length(y)
-  p <- ncol(x)
+  est$p <-p <- ncol(x)
   terms <- attr(mf, "terms")
   est$H <- H  <- solve(t(x) %*% x) %*% t(x)
   est$beta <- beta <- H %*% y
-  est$residuals <- residuals <- y - x %*% beta
+  est$yhat <- yhat <- x %*% beta
+  est$residuals <- residuals <- y - yhat
   sigma2 <- drop(t(residuals) %*% (residuals) / (n - p))
   est$covar <- covar <- solve(t(x) %*% x) * sigma2
   est$dof <- dof <- n-length(beta)
@@ -100,7 +101,8 @@ summary.mylm <- function(est, ...) {
 
 plot.mylm <- function(est, ...) {
   # Code here is used when plot(object) is used on objects of class "mylm"
-  plot(est$covar, title = est$formula)
+  #plot(est$covar, title = est$formula)
+  plot(est$yhat,est$residuals,ylab="Residuals",xlab="Fitted values")
 }
 
 

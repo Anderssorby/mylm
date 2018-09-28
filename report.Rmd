@@ -69,8 +69,8 @@ summary(model1)
 **c)**
 ```{r plot}
 plot(model1)
-#summary(model1b)
 ```
+
 **d)**
 
 The error of the regression can be represented using the following quantities. This holds for linear regression. We are using the following naming convention, which may differ from other texts.
@@ -81,20 +81,30 @@ SSR = \sum^{n}_{i=1}(y_i - \hat{y}_i)^2 \\
 SST = \sum^{n}_{i=1}(y_i - \bar{y}_i)^2 = SSE + SSR \\
 R^2 = 1 - \frac{SSR}{SST}
 \end{align}
-where $\bar{y}$ is the mean of responses and $\hat{y}_i$ is the fitted value. The coefficient of determination, \(R^2\), shows how much of the variance of the prediction can be explained by the variance of the response.
+where $\bar{y}$ is the mean of responses and $\hat{y}_i$ is the fitted value. 
 
-**c)**  
-
-**d)**
-
-The residual sum of squares (SSR) for this model is \(`r sprintf('%.3f', model1$ssr)`\). 
-The model has \(`r n-length(model1$beta)`\) degrees of freedom, which is obtained by subtracting the number of estimated parameters from the number of observations.
-The total sum of squares (SST) is \(`r sprintf('%.3f', model1$sst)`\). Assuming $\beta_1=0$ we have
+The residual sum of squares (SSR) for this model is \(`r sprintf('%.0f', model1$ssr)`\). 
+The model has \(`r n-model1$p`\) degrees of freedom, which is obtained by subtracting the number of estimated parameters from the number of observations.
+The total sum of squares (SST) is \(`r sprintf('%.0f', model1$sst)`\). 
+For a model with so many degrees of freedom we can use the limiting distribution
 
 \begin{equation}
-\frac{\nicefrac{SSE}{p-1}}{\nicefrac{SSR}{n-p}} \sim \chi^2
+(p-1)F = (p-1)\frac{\nicefrac{SSE}{p-1}}{\nicefrac{SSR}{n-p}} \sim \chi_{p-1}^2,
 \end{equation}
+
+which gives gives a value of \(`r sprintf('%.2f', (n-model1$p)*model1$sse/model1$ssr)`\).
+For a $\chi_{1}^2$ distribution, where the mean is 1, this is a very extreme value.
+Hence the regression is clearly significant.
+A $\chi^2_k$ distribution is the sum of the squares of $k$ independent standard normal random variables.
+In our case we have $k=1$, meaning that the $\chi^2$-statistic is simply the square of the $z$-statistic. 
+The critical value for a $\chi_{1}^2$ test with confidence of 95% is \(`r sprintf('%.2f',qchisq(0.95,1))`\), while the two-sided $z$-test has critical values $\pm 1.96$.
+
+
 **e)**
+The coefficient of determination, \(R^2\), shows how much of the variance of the prediction can be explained by the variance of the response.
+This gives some information about models goodness of fit.
+In our case \(R^2\approx0.09\), which indicates that considering a model with additional covariates is a good idea.
+A high proportion of the variance in the data is not accounted for by `model1`.
 
 # Part 3: Multiple linear regression
 
