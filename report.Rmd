@@ -128,7 +128,7 @@ model2c2 <- mylm(wages ~ age, data = SLID)
 summary(model2c1)
 summary(model2c2)
 ```
-The values differ between the models because each covariate is used to explain more of the model than in the bigger model. 
+The values differ from the bigger model because each covariate is used to explain more of the resonse than in the bigger model. 
 We know from the plot in part 1 that `age` and `education` are correlated.
 This means that changing the covariate in one of the small models is similar to changing both covariates in the bigger model.
 For uncorrelated covariates we would expect the same parameter estimates from the simple and multiple linear regression.
