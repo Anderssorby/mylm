@@ -158,3 +158,5 @@ By releveling, we can find the interaction between English speakers and age whic
 It is notable that the coefficients for language change a lot between `model4a` and `model4b`.
 The coefficent for speaking French even changes sign between the two models.
 The interpretation of this is that the seemingly increased wages for French speakers are better explained by their sex and education.
+It is possible that `model4a` could be improved by transforming the age covariate, for example by taking the logarithm . 
+For `model4b`, it might be improved by adding education as a covariate and `model4c` could be improved by including the intercept.
